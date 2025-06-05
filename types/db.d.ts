@@ -9,3 +9,16 @@ export interface User extends RowDataPacket{
     createdAt: Date;
     updatedAt: Date;
 }
+
+export interface UsersGroups extends RowDataPacket{
+    id: number;
+    userId: number;
+    groupId: number;
+    isOwner: boolean;
+}
+
+export interface Groups extends RowDataPacket{
+    id: number;
+    name: string;
+    icon: string | null;
+}

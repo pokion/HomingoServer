@@ -14,3 +14,8 @@ export interface UserRequestLogin{
 }
 
 export interface jwtCustomPayloadReq extends jwtCustomPayloadRes, JwtPayload{}
+
+export interface GroupRequestCreate{
+    name: string & tags.MinLength<1> & tags.MaxLength<100>;
+    userId: number
+}

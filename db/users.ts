@@ -1,4 +1,4 @@
-import query from './connection.js';
+import { query } from './connection.js';
 import { User } from '../types/db';
 
 async function add(email: string, name: string, password: string){
