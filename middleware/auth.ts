@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
-import { jwtCustomPayloadReq } from "../types/apiRequest";
+import { jwtCustomPayloadReq } from "../types/apiRequest.js";
 
 if(!process.env.JWT_SECRET){
     throw Error('JsonWebToken secret is undefined');
@@ -16,7 +16,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             return;
         }
 
-        const decoded = jwt.verify(token, JWT_SECRET) as jwtCustomPayloadReq;
+        const decoded = await jwt.verify(token, JWT_SECRET) as jwtCustomPayloadReq;
         (req as any).user = decoded;
 
         next();

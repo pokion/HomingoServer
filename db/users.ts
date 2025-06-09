@@ -1,5 +1,5 @@
 import { query } from './connection.js';
-import { User } from '../types/db';
+import { User } from '../types/db.js';
 
 async function add(email: string, name: string, password: string){
     return await query<User>('INSERT INTO users(email, name, password) VALUES(?,?,?)', [email, name, password]);

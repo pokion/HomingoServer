@@ -2,8 +2,8 @@ import bcrypt from 'bcryptjs';
 import typia from 'typia';
 import { Request, Response } from 'express';
 import db from '../../db/index.js';
-import { ErrorResponse, messageResponse } from '../../types/apiResponse';
-import { UserRequestRegister } from '../../types/apiRequest';
+import { ErrorResponse, messageResponse } from '../../types/apiResponse.js';
+import { UserRequestRegister } from '../../types/apiRequest.js';
 
 export default async (req: Request, res: Response<ErrorResponse | messageResponse>) => {
     try{

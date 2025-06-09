@@ -2,8 +2,8 @@ import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 import db from './../../db/index.js';
 import { Request, Response } from 'express';
-import { UserRequestLogin } from '../../types/apiRequest';
-import { ErrorResponse, jwtCustomPayloadRes, messageResponse } from '../../types/apiResponse';
+import { UserRequestLogin } from '../../types/apiRequest.js';
+import { ErrorResponse, jwtCustomPayloadRes, messageResponse } from '../../types/apiResponse.js';
 import typia from "typia";
 
 if(!process.env.JWT_SECRET){

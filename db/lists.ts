@@ -1,5 +1,5 @@
 import { transaction } from './connection.js';
-import { List } from '../types/db';
+import { List } from '../types/db.js';
 import { ResultSetHeader } from 'mysql2';
 
 async function add(name: List['name'], category: List['category'], groupId: number){
