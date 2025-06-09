@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import users from './users/index.js';
 import groups from './groups/index.js';
+import lists from './lists/index.js';
 
 const routes = express.Router();
 
@@ -15,5 +16,6 @@ routes.use((req, res, next) => {
 
 routes.use('/user', users)
 routes.use('/group', groups)
+routes.use('/list', lists)
 
 export default routes;

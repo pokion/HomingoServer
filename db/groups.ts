@@ -7,7 +7,7 @@ async function add(groupName: string, userId: number){
         const group = await transaction<number, Group>(
             async (conn) => {
                 const [resultHeader] = await conn.execute<ResultSetHeader>('INSERT INTO groups(name) VALUES(?)', [groupName]);
-                await conn.execute('INSERT INTO usersgroups(userId, groupId, isOwner) VALUES(?,?,?)', [userId, resultHeader.insertId, true]);
+                await conn.execute('INSERT INTO users_groups(userId, groupId, isOwner) VALUES(?,?,?)', [userId, resultHeader.insertId, true]);
                 return resultHeader.insertId;
             },
             async (conn, data) => {
