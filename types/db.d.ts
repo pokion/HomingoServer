@@ -54,20 +54,20 @@ export interface Item extends RowDataPacket{
     dueTo: date | null;
 }
 
-export interface list extends RowDataPacket{
+export interface List extends RowDataPacket{
     id: number;
     name: string;
     category: Category;
     icon: string | null;
 }
 
-export interface listItem extends RowDataPacket{
+export interface ListItem extends RowDataPacket{
     id: number;
     listId: number;
     itemId: number;
 }
 
-export interface multimedia extends RowDataPacket{
+export interface Multimedia extends RowDataPacket{
     id: number;
     userId: number;
     path: string;
