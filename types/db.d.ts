@@ -44,7 +44,7 @@ export interface GroupList extends RowDataPacket{
 }
 
 export interface Item extends RowDataPacket{
-    id: number;
+    id: number | null;
     name: string;
     multimediaId: number | null;
     quantity: number | null;
