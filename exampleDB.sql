@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Cze 09, 2025 at 02:58 PM
+-- Generation Time: Cze 10, 2025 at 03:32 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -36,18 +36,6 @@ CREATE TABLE `groups` (
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `groups_lists`
---
-
-CREATE TABLE `groups_lists` (
-  `id` int(11) NOT NULL,
-  `groupId` int(11) DEFAULT NULL,
-  `listId` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Struktura tabeli dla tabeli `items`
 --
 
@@ -59,7 +47,8 @@ CREATE TABLE `items` (
   `unit` enum('g','kg','l','ml','m','mm') DEFAULT NULL,
   `expirationDate` date DEFAULT NULL,
   `isChecked` tinyint(1) DEFAULT NULL,
-  `dueTo` date DEFAULT NULL
+  `dueTo` date DEFAULT NULL,
+  `listId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -72,19 +61,8 @@ CREATE TABLE `lists` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `category` enum('Shopping','Cleaning','Storage') NOT NULL,
-  `icon` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `lists_items`
---
-
-CREATE TABLE `lists_items` (
-  `id` int(11) NOT NULL,
-  `listId` int(11) DEFAULT NULL,
-  `itemId` int(11) DEFAULT NULL
+  `icon` varchar(255) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -139,33 +117,19 @@ ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeksy dla tabeli `groups_lists`
---
-ALTER TABLE `groups_lists`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `groupId` (`groupId`),
-  ADD KEY `listId` (`listId`);
-
---
 -- Indeksy dla tabeli `items`
 --
 ALTER TABLE `items`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `multimediaId` (`multimediaId`);
+  ADD KEY `multimediaId` (`multimediaId`),
+  ADD KEY `fk_lists_id` (`listId`);
 
 --
 -- Indeksy dla tabeli `lists`
 --
 ALTER TABLE `lists`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indeksy dla tabeli `lists_items`
---
-ALTER TABLE `lists_items`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `listId` (`listId`),
-  ADD KEY `itemId` (`itemId`);
+  ADD KEY `fk_group_id` (`groupId`);
 
 --
 -- Indeksy dla tabeli `multimedia`
@@ -197,31 +161,19 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `groups_lists`
---
-ALTER TABLE `groups_lists`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `lists`
 --
 ALTER TABLE `lists`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `lists_items`
---
-ALTER TABLE `lists_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `multimedia`
@@ -233,37 +185,30 @@ ALTER TABLE `multimedia`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `groups_lists`
---
-ALTER TABLE `groups_lists`
-  ADD CONSTRAINT `groups_lists_ibfk_1` FOREIGN KEY (`groupId`) REFERENCES `groups` (`id`),
-  ADD CONSTRAINT `groups_lists_ibfk_2` FOREIGN KEY (`listId`) REFERENCES `lists` (`id`);
-
---
 -- Constraints for table `items`
 --
 ALTER TABLE `items`
+  ADD CONSTRAINT `fk_lists_id` FOREIGN KEY (`listId`) REFERENCES `lists` (`id`),
   ADD CONSTRAINT `items_ibfk_1` FOREIGN KEY (`multimediaId`) REFERENCES `multimedia` (`id`);
 
 --
--- Constraints for table `lists_items`
+-- Constraints for table `lists`
 --
-ALTER TABLE `lists_items`
-  ADD CONSTRAINT `lists_items_ibfk_1` FOREIGN KEY (`listId`) REFERENCES `lists` (`id`),
-  ADD CONSTRAINT `lists_items_ibfk_2` FOREIGN KEY (`itemId`) REFERENCES `items` (`id`);
+ALTER TABLE `lists`
+  ADD CONSTRAINT `fk_group_id` FOREIGN KEY (`groupId`) REFERENCES `groups` (`id`);
 
 --
 -- Constraints for table `multimedia`

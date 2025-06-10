@@ -37,3 +37,11 @@ export interface ItemRequestCreate{
     isChecked: boolean | null;
     dueTo: string & tags.Format<"date"> | null;
 }
+
+export interface ItemRequestGet{
+    listId: number;
+}
+
+export interface ItemRequestGet{
+    itemId: number;
+}

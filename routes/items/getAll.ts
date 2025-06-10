@@ -1,13 +1,13 @@
 import typia from 'typia';
-import { ItemRequestCreate } from '../../types/apiRequest.js';
+import { ItemRequestGet } from '../../types/apiRequest.js';
 import db from './../../db/index.js';
 import { Request, Response } from 'express';
 
 export default async (req: Request, res: Response) =>{
     try{
-        const item: ItemRequestCreate = typia.assert<ItemRequestCreate>(req.body);
+        const { listId }: ItemRequestGet = typia.assert<ItemRequestGet>(req.body);
         
-        res.status(200).json({ message: 'Item added.', data: await db.items.add(item) }); 
+        res.status(200).json({ message: 'Ites found.', data: await db.items.getAllItemsInList(listId) }); 
         
     }catch(err){
         if(process.env.NODE_ENV !== 'production'){

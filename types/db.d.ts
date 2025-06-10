@@ -37,12 +37,6 @@ export interface Group extends RowDataPacket{
     icon: string | null;
 }
 
-export interface GroupList extends RowDataPacket{
-    id: number;
-    groupId: number;
-    listId: number;
-}
-
 export interface Item extends RowDataPacket{
     id: number | null;
     name: string;
@@ -52,6 +46,7 @@ export interface Item extends RowDataPacket{
     expirationDate: date | null;
     isChecked: boolean;
     dueTo: date | null;
+    listId: number;
 }
 
 export interface List extends RowDataPacket{
@@ -59,12 +54,7 @@ export interface List extends RowDataPacket{
     name: string;
     category: Category;
     icon: string | null;
-}
-
-export interface ListItem extends RowDataPacket{
-    id: number;
-    listId: number;
-    itemId: number;
+    groupId: number;
 }
 
 export interface Multimedia extends RowDataPacket{
