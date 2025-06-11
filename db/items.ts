@@ -16,8 +16,18 @@ async function remove(itemId: number){
     return await query<Item>(`DELETE FROM items WHERE id = ?`, [itemId]);
 }
 
+async function update(itemId: number, columsToUpdate: {[key: string]: any}){
+    let stringUpdate = [];
+    for(let column in columsToUpdate){
+        stringUpdate.push(` ${column} = '${columsToUpdate[column]}'`)
+    }
+
+    return await query<Item>(`UPDATE items SET ${stringUpdate.join(',')} WHERE id = ?`, [itemId]);
+}
+
 export default{
     add,
     getAllItemsInList,
-    remove
+    remove,
+    update
 }

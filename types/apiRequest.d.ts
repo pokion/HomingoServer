@@ -1,6 +1,5 @@
 import typia, { tags } from 'typia';
 import { jwtCustomPayloadRes } from './apiResponse';
-import { JwtPayload } from 'jsonwebtoken';
 import { Category, Unit } from './db';
 
 export interface UserRequestRegister{
@@ -56,4 +55,14 @@ export interface ListRequestRemove{
 
 export interface GroupRequestRemove{
     groupId: number;
+}
+
+export interface ItemRequestUpdate{
+    name?: string & tags.MinLength<1> & tags.MaxLength<100>;
+    multimediaId?: number;
+    quantity?: number;
+    unit?: Unit;
+    expirationDate?: string & tags.Format<"date">;
+    isChecked?: boolean;
+    dueTo?: string & tags.Format<"date">;
 }

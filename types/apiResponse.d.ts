@@ -1,3 +1,5 @@
+import { JwtPayload } from 'jsonwebtoken';
+
 export interface ErrorResponse{
     message: string;
     error: any;
