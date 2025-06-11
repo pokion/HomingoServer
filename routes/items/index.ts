@@ -9,6 +9,6 @@ import remove from './remove.js';
 
 items.post('/', auth, create);
 items.get('/', auth, get);
-items.delete('/', auth, get);
+items.delete('/', auth, remove);
 
 export default items;

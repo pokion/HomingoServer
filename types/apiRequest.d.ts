@@ -14,7 +14,7 @@ export interface UserRequestLogin{
     password: string & tags.MaxLength<100> & tags.MinLength<8> & tags.Format<'password'>;
 }
 
-export interface jwtCustomPayloadReq extends jwtCustomPayloadRes, JwtPayload{}
+export interface jwtCustomPayloadReq extends jwtCustomPayloadRes{}
 
 export interface GroupRequestCreate{
     name: string & tags.MinLength<1> & tags.MaxLength<100>;
@@ -51,5 +51,9 @@ export interface ListRequestGet{
 }
 
 export interface ListRequestRemove{
+    groupId: number;
+}
+
+export interface GroupRequestRemove{
     groupId: number;
 }

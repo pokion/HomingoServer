@@ -7,7 +7,7 @@ export interface messageResponse{
     message: string;
 }
 
-export interface jwtCustomPayloadRes{
+export interface jwtCustomPayloadRes extends JwtPayload{
     id: number;
     email: string;
 }
