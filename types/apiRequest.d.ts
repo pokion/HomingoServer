@@ -42,6 +42,14 @@ export interface ItemRequestGet{
     listId: number;
 }
 
-export interface ItemRequestGet{
+export interface ItemRequestRemove{
     itemId: number;
+}
+
+export interface ListRequestGet{
+    groupId: number;
+}
+
+export interface ListRequestRemove{
+    groupId: number;
 }

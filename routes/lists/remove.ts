@@ -1,13 +1,13 @@
 import typia from 'typia';
-import { ItemRequestGet } from '../../types/apiRequest.js';
+import { ItemRequestRemove } from '../../types/apiRequest.js';
 import db from './../../db/index.js';
 import { Request, Response } from 'express';
 
 export default async (req: Request, res: Response) =>{
     try{
-        const { listId }: ItemRequestGet = typia.assert<ItemRequestGet>(req.body);
+        const { itemId }: ItemRequestRemove = typia.assert<ItemRequestRemove>(req.body);
         
-        res.status(200).json({ message: 'Items found.', data: await db.items.getAllItemsInList(listId) }); 
+        res.status(200).json({ message: 'List deleted.', data: await db.items.remove(itemId) }); 
         
     }catch(err){
         if(process.env.NODE_ENV !== 'production'){

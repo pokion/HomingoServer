@@ -5,9 +5,9 @@ import { Request, Response } from 'express';
 
 export default async (req: Request, res: Response) =>{
     try{
-        const { itemId }: ItemRequestGet = typia.assert<ItemRequestGet>(req.body);
+        const { listId }: ItemRequestGet = typia.assert<ItemRequestGet>(req.body);
         
-        res.status(200).json({ message: 'Item deleted.', data: await db.items.remove(itemId) }); 
+        res.status(200).json({ message: 'Items deleted.', data: await db.lists.remove(listId) }); 
         
     }catch(err){
         if(process.env.NODE_ENV !== 'production'){

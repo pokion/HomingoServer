@@ -10,7 +10,7 @@ const pool: Pool = mysql.createPool({
     queueLimit: 0
 });
 
-export async function query<T extends RowDataPacket>(sql: string, values?: unknown[]): Promise<T[] | null>{
+export async function query<T extends RowDataPacket>(sql: string, values?: unknown[]): Promise<T[]>{
     try{
         const [rows] = values ? await pool.execute<T[]>(sql, values) : await pool.execute<T[]>(sql);
         return rows;
@@ -18,10 +18,12 @@ export async function query<T extends RowDataPacket>(sql: string, values?: unkno
         if(process.env.NODE_ENV !== 'production'){
             console.error('MySQL query error:', err);
         }
-        return null;
+        throw err;
     }
 }
 
+export async function transaction<U>(inTransaction: (conn: mysql.PoolConnection) => Promise<U>): Promise<null>;
+export async function transaction<U,T extends RowDataPacket>(inTransaction: (conn: mysql.PoolConnection) => Promise<U>, afterCommit?: (conn: mysql.PoolConnection, data: U) => Promise<T[]>): Promise<T[]>;
 export async function transaction<U,T extends RowDataPacket>(
     inTransaction: (conn: mysql.PoolConnection) => Promise<U>, 
     afterCommit?: (conn: mysql.PoolConnection, data: U) => Promise<T[]>

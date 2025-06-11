@@ -1,17 +1,17 @@
 import typia from 'typia';
-import { ItemRequestGet } from '../../types/apiRequest.js';
+import { ListRequestGet } from '../../types/apiRequest.js';
 import db from './../../db/index.js';
 import { Request, Response } from 'express';
 
 export default async (req: Request, res: Response) =>{
     try{
-        const { listId }: ItemRequestGet = typia.assert<ItemRequestGet>(req.body);
+        const { groupId }: ListRequestGet = typia.assert<ListRequestGet>(req.body);
         
-        res.status(200).json({ message: 'Items found.', data: await db.items.getAllItemsInList(listId) }); 
+        res.status(200).json({ message: 'Lists found.', data: await db.lists.getAll(groupId) }); 
         
     }catch(err){
         if(process.env.NODE_ENV !== 'production'){
-            console.error('Login error:', err);
+            console.error('Lists error:', err);
         }
         if(err instanceof typia.TypeGuardError){
             res.status(400).json({ message: 'Invalid input structure.' });
