@@ -66,3 +66,7 @@ export interface ItemRequestUpdate{
     isChecked?: boolean;
     dueTo?: string & tags.Format<"date">;
 }
+
+export interface GroupAddUserRequest{
+    inviteCode: string & tags.MaxLength<5> & tags.MinLength<5>;
+}

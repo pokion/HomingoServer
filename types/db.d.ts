@@ -35,6 +35,7 @@ export interface Group extends RowDataPacket{
     id: number;
     name: string;
     icon: string | null;
+    inviteCode: string;
 }
 
 export interface Item extends RowDataPacket{
