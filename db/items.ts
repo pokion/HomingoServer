@@ -18,11 +18,13 @@ async function remove(itemId: number){
 
 async function update(itemId: number, columsToUpdate: {[key: string]: any}){
     let stringUpdate = [];
+    let values = [];
     for(let column in columsToUpdate){
-        stringUpdate.push(` ${column} = '${columsToUpdate[column]}' `)// TODO: zrobić jakoś żeby wartości od usera były przekazywane do query a nie w stringu
+        stringUpdate.push(` ${column} = ? `);
+        values.push(columsToUpdate[column]);
     }
 
-    return await query<Item>(`UPDATE items SET ${stringUpdate.join(',')} WHERE id = ?`, [itemId]);
+    return await query<Item>(`UPDATE items SET ${stringUpdate.join(',')} WHERE id = ?`, [...values ,itemId]);
 }
 
 export default{
