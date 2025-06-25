@@ -7,7 +7,7 @@ export default async (req: Request, res: Response) =>{
     try{
         const { name, category, groupId }: ListRequestCreate = typia.assert<ListRequestCreate>(req.body);
         
-        res.status(200).json({ message: 'Internal server error.', data: await db.lists.add(name, category, groupId) }); 
+        res.status(200).json({ message: 'list added.', data: await db.lists.add(name, category, groupId) }); 
         
     }catch(err){
         if(process.env.NODE_ENV !== 'production'){

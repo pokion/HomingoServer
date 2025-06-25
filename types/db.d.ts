@@ -64,3 +64,18 @@ export interface Multimedia extends RowDataPacket{
     path: string;
     createAt: date;
 }
+
+export interface AllUserData extends RowDataPacket{
+    groupId: number;
+    groupName: string;
+    listId: number;
+    listName: string;
+    listCategory: string;
+    itemId: number;
+    itemName: string;
+    dueTo: date | null;
+    quantity: number | null;
+    unit: Unit | null;
+    expirationDate: date | null;
+    isChecked: boolean;
+}
